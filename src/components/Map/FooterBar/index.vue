@@ -8,32 +8,31 @@
 
 </template>
 <script setup>
-import { onMounted } from 'vue'
 
 const list = [
   {
-    label:'渔船总数',
-    prop:'total'
+    label: '渔船总数',
+    prop: 'total'
   },
   {
-    label:'在线数量',
-    prop:'online'
+    label: '在线数量',
+    prop: 'online'
   },
   {
-    label:'离线数量',
-    prop:'offline'
+    label: '离线数量',
+    prop: 'offline'
   },
   {
-    label:'在外作业船数',
-    prop:'work'
+    label: '在外作业船数',
+    prop: 'work'
   }
 ]
 
 const model = {
-  total:300,
-  online:280,
-  offline:20,
-  work:200,
+  total: 300,
+  online: 280,
+  offline: 20,
+  work: 200
 }
 
 </script>

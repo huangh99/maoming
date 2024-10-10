@@ -26,7 +26,6 @@ html ::-webkit-scrollbar {
   background: transparent;
 }
 
-
 /* 字体设置 */
 /* 思源黑体-中等 */
 @font-face {
@@ -54,7 +53,7 @@ html ::-webkit-scrollbar {
 
 /* 优设体 */
 @font-face {
-  font-family: 'YSR';
+  font-family: 'YouSheRegular';
   src: url('/font/YouSheRegular.TTF');
 }
 
@@ -80,5 +79,9 @@ html ::-webkit-scrollbar {
   color: #2c3e50;
   width: 100%;
   box-sizing: border-box;
+}
+
+:focus-visible {
+  outline: unset;
 }
 </style>

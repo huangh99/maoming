@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@maptalks/gl-layers": "^0.34.1",
+    "@vueuse/core": "^11.1.0",
+    "axios": "^1.7.7",
     "element-plus": "^2.8.4",
     "maptalks": "^1.0.0-rc.37",
     "pinia": "^2.2.2",
@@ -17,9 +19,19 @@
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.25.7",
+    "@babel/eslint-parser": "^7.25.7",
+    "@eslint/js": "^9.12.0",
     "@vitejs/plugin-vue": "^5.1.2",
-    "@vitejs/plugin-vue-jsx": "^4.0.1",
+    "eslint": "^9.12.0",
+    "eslint-define-config": "^2.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-vue": "^9.28.0",
+    "globals": "^15.10.0",
+    "prettier": "^3.3.3",
     "sass": "^1.79.4",
-    "vite": "^5.4.1"
+    "vite": "^5.4.1",
+    "vite-plugin-eslint": "^1.8.1",
+    "vue-eslint-parser": "^9.4.3"
   }
 }
