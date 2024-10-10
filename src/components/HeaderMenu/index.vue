@@ -44,7 +44,7 @@ const activeIndex = ref('port-manage')
  */
 const toggleNav = (nav) => {
   console.log(nav)
-  router.push('/business/port-manage')
+  router.push('/business/trawler-manage')
 }
 
 // const initMenu = () => {

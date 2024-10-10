@@ -5,12 +5,12 @@ export default [
     component: () => import('@/views/business/index.vue'),
     children: [
       {
-        path: 'port-manage',
-        name: 'port-manage',
-        component: () => import('@/views/business/port/archive/index.vue'),
+        path: 'trawler-manage',
+        name: 'trawler-manage',
+        component: () => import('@/views/business/trawler/manage/index.vue'),
         meta: {
           auth: false,
-          title: '渔港管理'
+          title: '渔船信息'
         }
       }
     ]
