@@ -1,5 +1,5 @@
 <template>
-  <DialogComponent title="渔船信息" @close="close">
+  <DialogComponent title="报警信息" @close="close">
     <FilterComponent :filter-items="items" :filter-model="model"/>
     <TableComponent style="height: 500px;" :data="data" :columns="columns" :config="config" :operate="operate"/>
     <el-pagination
@@ -24,70 +24,70 @@ const router = useRouter()
 
 const items = [
   {
-    label: '船名号',
-    prop: 'boatName',
-    type: 'input'
+    label: '时间区间',
+    prop: 'time',
+    type: 'datetimerange'
   },
   {
-    label: '终端号码',
-    prop: 'terminalCode',
-    type: 'input'
+    label: '报警类型',
+    prop: 'alarmType',
+    type: 'select',
+    options: [
+      {
+        label: '休渔期出海',
+        value: '休渔期出海'
+      }
+    ]
   },
   {
     name: '查询',
     prop: 'query',
     theme: 'primary',
     type: 'button'
-  },
-  {
-    name: '新增',
-    prop: 'add',
-    theme: 'success',
-    type: 'button'
-  },
-  {
-    name: '导入',
-    prop: 'add',
-    theme: 'info',
-    type: 'button'
-  },
-  {
-    name: '导出',
-    prop: 'add',
-    theme: 'warning',
-    type: 'button'
   }
 ]
 
 let model = {
-  boatName: '',
-  terminalCode: ''
+  time: '',
+  alarmType: ''
 }
 
 const data = [
   {
     boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
+    alarmType: '412537779',
+    alarmTime: '2024-01-01 00:00:00',
+    status: '待受理'
   },
   {
     boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
+    alarmType: '412537779',
+    alarmTime: '2024-01-01 00:00:00',
+    status: '待受理'
   },
   {
     boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
+    alarmType: '412537779',
+    alarmTime: '2024-01-01 00:00:00',
+    status: '待受理'
   },
   {
     boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
+    alarmType: '412537779',
+    alarmTime: '2024-01-01 00:00:00',
+    status: '待受理'
+  },
+  {
+    boatName: '粤茂滨渔54108',
+    alarmType: '412537779',
+    alarmTime: '2024-01-01 00:00:00',
+    status: '待受理'
+  },
+  {
+    boatName: '粤茂滨渔54108',
+    alarmType: '412537779',
+    alarmTime: '2024-01-01 00:00:00',
+    status: '待受理'
   }
 ]
 
@@ -97,16 +97,16 @@ const columns = [
     prop: 'boatName'
   },
   {
-    label: '终端号码',
-    prop: 'terminalCode'
+    label: '报警类型',
+    prop: 'alarmType'
   },
   {
-    label: '所属地',
-    prop: 'address'
+    label: '报警时间',
+    prop: 'alarmTime'
   },
   {
-    label: '渔船所有人',
-    prop: 'ownerName'
+    label: '状态',
+    prop: 'status'
   }
 ]
 
@@ -117,14 +117,9 @@ const config = {
 
 const operate = [
   {
-    label: '编辑',
-    prop: 'edit',
+    label: '处置',
+    prop: 'dispose',
     theme: 'primary'
-  },
-  {
-    label: '删除',
-    prop: 'delete',
-    theme: 'danger'
   }
 ]
 

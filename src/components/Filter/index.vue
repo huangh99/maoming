@@ -1,7 +1,7 @@
 <template>
   <el-form :inline="true" :model="model">
     <el-form-item
-      v-for="(item, index) in items"
+      v-for="(item, index) in filterItems"
       :key="index"
       :label="item.label">
 
@@ -103,24 +103,15 @@ const props = defineProps({
   }
 })
 
-const items = ref([])
 const model = ref({})
 
 /**
- * 向父组件传递数据
+ * 点击操作按钮
  * @param type 操作类型
  */
 const handle = (type) => {
   emit('handle', type, model.value)
 }
-
-// /**
-//  * 向父组件传递数据
-//  * @param prop 字段名称
-//  */
-// const change = (prop) => {
-//   emit('change', prop, model.value[prop])
-// }
 
 /**
  * 重置表单数据
@@ -130,7 +121,6 @@ const reset = () => {
 }
 
 onMounted(() => {
-  items.value = [ ...props.filterItems ]
   model.value = { ...props.filterModel }
 })
 

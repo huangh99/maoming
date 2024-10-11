@@ -12,7 +12,7 @@
 
     <el-sub-menu :index="item.value" v-for="item in menu" :key="item.value">
         <template #title>{{item.label}}</template>
-        <el-menu-item :index="child.value" v-for="child in item.children" :key="child.value" @click="toggleNav">{{child.label}}</el-menu-item>
+        <el-menu-item :index="child.value" v-for="child in item.children" :key="child.value" @click="toggleNav(child)">{{child.label}}</el-menu-item>
       </el-sub-menu>
     </el-menu>
     <div class="user">
@@ -43,13 +43,8 @@ const activeIndex = ref('port-manage')
  * @param nav 菜单项
  */
 const toggleNav = (nav) => {
-  console.log(nav)
-  router.push('/business/trawler-manage')
+  router.push(nav.path)
 }
-
-// const initMenu = () => {
-
-// }
 
 onMounted(() => {
   // initMenu()

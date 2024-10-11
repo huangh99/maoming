@@ -1,5 +1,5 @@
 <template>
-  <DialogComponent title="渔船信息" @close="close">
+  <DialogComponent title="设备管理" @close="close">
     <FilterComponent :filter-items="items" :filter-model="model"/>
     <TableComponent style="height: 500px;" :data="data" :columns="columns" :config="config" :operate="operate"/>
     <el-pagination
@@ -24,13 +24,32 @@ const router = useRouter()
 
 const items = [
   {
-    label: '船名号',
-    prop: 'boatName',
+    label: '设备编号',
+    prop: 'code',
     type: 'input'
   },
   {
-    label: '终端号码',
-    prop: 'terminalCode',
+    label: '设备类型',
+    prop: 'type',
+    type: 'select',
+    options: [
+      {
+        label: '北斗',
+        value: '北斗'
+      },
+      {
+        label: 'AIS',
+        value: 'AIS'
+      },
+      {
+        label: '其他',
+        value: '其他'
+      }
+    ]
+  },
+  {
+    label: '设备厂家',
+    prop: 'factory',
     type: 'input'
   },
   {
@@ -38,75 +57,60 @@ const items = [
     prop: 'query',
     theme: 'primary',
     type: 'button'
-  },
-  {
-    name: '新增',
-    prop: 'add',
-    theme: 'success',
-    type: 'button'
-  },
-  {
-    name: '导入',
-    prop: 'add',
-    theme: 'info',
-    type: 'button'
-  },
-  {
-    name: '导出',
-    prop: 'add',
-    theme: 'warning',
-    type: 'button'
   }
 ]
 
 let model = {
-  boatName: '',
-  terminalCode: ''
+  code: '',
+  type: '',
+  factory: ''
 }
 
 const data = [
   {
-    boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
+    code: '281362',
+    type: '北斗',
+    factory: '福建飞通通讯科技股份有限公司'
   },
   {
-    boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
+    code: '281362',
+    type: '北斗',
+    factory: '福建飞通通讯科技股份有限公司'
   },
   {
-    boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
+    code: '281362',
+    type: '北斗',
+    factory: '福建飞通通讯科技股份有限公司'
   },
   {
-    boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
+    code: '281362',
+    type: '北斗',
+    factory: '福建飞通通讯科技股份有限公司'
+  },
+  {
+    code: '281362',
+    type: '北斗',
+    factory: '福建飞通通讯科技股份有限公司'
+  },
+  {
+    code: '281362',
+    type: '北斗',
+    factory: '福建飞通通讯科技股份有限公司'
   }
 ]
 
 const columns = [
   {
-    label: '渔船名称',
-    prop: 'boatName'
+    label: '设备编号',
+    prop: 'code'
   },
   {
-    label: '终端号码',
-    prop: 'terminalCode'
+    label: '设备类型',
+    prop: 'type'
   },
   {
-    label: '所属地',
-    prop: 'address'
-  },
-  {
-    label: '渔船所有人',
-    prop: 'ownerName'
+    label: '设备厂家',
+    prop: 'factory'
   }
 ]
 

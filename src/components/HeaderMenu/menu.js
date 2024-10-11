@@ -7,7 +7,7 @@ const menu = [
       {
         label: '渔船信息',
         value: 'trawler-info',
-        path: ''
+        path: '/business/trawler-manage'
       }
     ]
   },
@@ -19,17 +19,17 @@ const menu = [
       {
         label: '设备管理',
         value: 'device-manage',
-        path: ''
+        path: '/business/device-manage'
       },
       {
         label: '设备分组',
         value: 'device-group',
-        path: ''
+        path: '/business/device-group'
       },
       {
         label: '设备关注',
         value: 'device-focus',
-        path: ''
+        path: '/business/device-focus'
       }
     ]
   },
@@ -41,17 +41,17 @@ const menu = [
       {
         label: '报警信息',
         value: 'alarm-info',
-        path: ''
+        path: '/business/alarm-info'
       },
       {
         label: '报警通知设置',
         value: 'alarm-notice',
-        path: ''
+        path: '/business/alarm-notice'
       },
       {
         label: '离线报警设置',
         value: 'alarm-offline',
-        path: ''
+        path: '/business/alarm-offline'
       }
     ]
   },
@@ -63,17 +63,17 @@ const menu = [
       {
         label: '电子围栏划定',
         value: 'fence-setting',
-        path: ''
+        path: '/business/fence-setting'
       },
       {
         label: '重点监控',
         value: 'trawler-focus',
-        path: ''
+        path: '/business/trawler-focus'
       },
       {
         label: '多船轨迹回放',
         value: 'trawler-path',
-        path: ''
+        path: '/business/trawler-path'
       }
     ]
   }

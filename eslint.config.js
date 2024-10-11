@@ -23,7 +23,7 @@ export default [
       'eol-last': 0, // 文件以换行符结束
       'no-multi-spaces': 'warn', // 禁止多余的空格
       'no-multiple-empty-lines': [ 'warn', { max: 1 } ], // 空行不能超过 1 行
-      'max-len': [ 'warn', { code: 600 } ],
+      'max-len': [ 'off', { code: 600 } ],
       'vue/multi-word-component-names': 'off', // 组件命名规则
       'linebreak-style': [ 'off', 'windows' ],
       'no-underscore-dangle': [ 'off', 'always' ],

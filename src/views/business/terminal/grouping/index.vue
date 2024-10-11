@@ -1,5 +1,5 @@
 <template>
-  <DialogComponent title="渔船信息" @close="close">
+  <DialogComponent title="设备分组" @close="close">
     <FilterComponent :filter-items="items" :filter-model="model"/>
     <TableComponent style="height: 500px;" :data="data" :columns="columns" :config="config" :operate="operate"/>
     <el-pagination
@@ -24,13 +24,8 @@ const router = useRouter()
 
 const items = [
   {
-    label: '船名号',
-    prop: 'boatName',
-    type: 'input'
-  },
-  {
-    label: '终端号码',
-    prop: 'terminalCode',
+    label: '分组名称',
+    prop: 'groupName',
     type: 'input'
   },
   {
@@ -44,69 +39,92 @@ const items = [
     prop: 'add',
     theme: 'success',
     type: 'button'
-  },
-  {
-    name: '导入',
-    prop: 'add',
-    theme: 'info',
-    type: 'button'
-  },
-  {
-    name: '导出',
-    prop: 'add',
-    theme: 'warning',
-    type: 'button'
   }
 ]
 
 let model = {
-  boatName: '',
-  terminalCode: ''
+  groupName: ''
 }
 
 const data = [
   {
-    boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
+    groupName: '分组A',
+    count: '6',
+    device: '查看',
+    people: 'admin',
+    time: '2024-01-01 00:00:00'
   },
   {
-    boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
+    groupName: '分组A',
+    count: '6',
+    device: '查看',
+    people: 'admin',
+    time: '2024-01-01 00:00:00'
   },
   {
-    boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
+    groupName: '分组A',
+    count: '6',
+    device: '查看',
+    people: 'admin',
+    time: '2024-01-01 00:00:00'
   },
   {
-    boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
+    groupName: '分组A',
+    count: '6',
+    device: '查看',
+    people: 'admin',
+    time: '2024-01-01 00:00:00'
+  },
+  {
+    groupName: '分组A',
+    count: '6',
+    device: '查看',
+    people: 'admin',
+    time: '2024-01-01 00:00:00'
+  },
+  {
+    groupName: '分组A',
+    count: '6',
+    device: '查看',
+    people: 'admin',
+    time: '2024-01-01 00:00:00'
+  },
+  {
+    groupName: '分组A',
+    count: '6',
+    device: '查看',
+    people: 'admin',
+    time: '2024-01-01 00:00:00'
+  },
+  {
+    groupName: '分组A',
+    count: '6',
+    device: '查看',
+    people: 'admin',
+    time: '2024-01-01 00:00:00'
   }
 ]
 
 const columns = [
   {
-    label: '渔船名称',
-    prop: 'boatName'
+    label: '分组名称',
+    prop: 'groupName'
   },
   {
-    label: '终端号码',
-    prop: 'terminalCode'
+    label: '设备数量',
+    prop: 'count'
   },
   {
-    label: '所属地',
-    prop: 'address'
+    label: '管理设备',
+    prop: 'device'
   },
   {
-    label: '渔船所有人',
-    prop: 'ownerName'
+    label: '添加人员',
+    prop: 'people'
+  },
+  {
+    label: '添加时间',
+    prop: 'time'
   }
 ]
 
