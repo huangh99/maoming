@@ -5,7 +5,6 @@
     </div>
     <el-menu
       :default-active="activeIndex"
-      class="el-menu-demo"
       mode="horizontal"
       :ellipsis="true"
     >
@@ -16,7 +15,7 @@
       </el-sub-menu>
     </el-menu>
     <div class="user">
-      <el-button :icon="Setting">系统设置</el-button>
+      <el-button :icon="Setting" @click="goSystem">系统设置</el-button>
       <el-avatar :icon="UserFilled" :size="28"/>
       <el-dropdown>
         <span class="username">admin</span>
@@ -44,6 +43,13 @@ const activeIndex = ref('port-manage')
  */
 const toggleNav = (nav) => {
   router.push(nav.path)
+}
+
+/**
+ * 跳转到系统设置
+ */
+const goSystem = () => {
+  window.open('/system', 'system_window')
 }
 
 onMounted(() => {

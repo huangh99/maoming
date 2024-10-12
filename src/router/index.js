@@ -1,12 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import business from '@/router/modules/business'
+import system from '@/router/modules/system'
 
 const routes = [
   {
     path: '',
     redirect: '/business'
   },
-  ...business
+  ...business,
+  ...system
 ]
 
 const router = createRouter({

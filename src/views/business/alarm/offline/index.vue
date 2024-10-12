@@ -1,153 +1,47 @@
 <template>
-  <DialogComponent title="渔船信息" @close="close">
-    <FilterComponent :filter-items="items" :filter-model="model"/>
-    <TableComponent style="height: 500px;" :data="data" :columns="columns" :config="config" :operate="operate"/>
-    <el-pagination
-      v-model:current-page="pagination.current"
-      v-model:page-size="pagination.size"
-      :total="pagination.total"
-      :page-sizes="[ 10, 15, 20, 50 ]"
-      layout="total, sizes, prev, pager, next, jumper"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      style="margin-top: 10px; justify-content: center;"
-    />
+  <DialogComponent v-show="!dialogVisible" title="离线报警设置" width="600" @close="close">
+    <el-form :model="model" label-width="auto" label-suffix="：" style="max-width: 600px">
+      <el-form-item label="是否开启">
+        <el-switch v-model="model.status" />
+      </el-form-item>
+      <el-form-item label="报警阈值">
+        <el-input v-model="model.limit">
+          <template #append>分钟</template>
+        </el-input>
+      </el-form-item>
+      <el-form-item label="操作人员">
+        <el-input v-model="model.operator" />
+      </el-form-item>
+      <el-form-item label="操作时间">
+        <el-input v-model="model.operatingTime" />
+      </el-form-item>
+      <el-form-item class="button">
+        <el-button type="warning" @click="dialogVisible=true">配置记录</el-button>
+        <el-button type="primary" @click="onSubmit">保存</el-button>
+      </el-form-item>
+    </el-form>
   </DialogComponent>
+  <DetailComponent v-if="dialogVisible" @close="dialogVisible=false"/>
 </template>
 <script setup>
+import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import FilterComponent from '@/components/Filter/index.vue'
-import TableComponent from '@/components/Table/index.vue'
 import DialogComponent from '@/components/Dialog/index.vue'
+import DetailComponent from './detail.vue'
 
 const router = useRouter()
 
-const items = [
-  {
-    label: '船名号',
-    prop: 'boatName',
-    type: 'input'
-  },
-  {
-    label: '终端号码',
-    prop: 'terminalCode',
-    type: 'input'
-  },
-  {
-    name: '查询',
-    prop: 'query',
-    theme: 'primary',
-    type: 'button'
-  },
-  {
-    name: '新增',
-    prop: 'add',
-    theme: 'success',
-    type: 'button'
-  },
-  {
-    name: '导入',
-    prop: 'add',
-    theme: 'info',
-    type: 'button'
-  },
-  {
-    name: '导出',
-    prop: 'add',
-    theme: 'warning',
-    type: 'button'
-  }
-]
+const model = reactive({
+  status: true,
+  limit: '30',
+  operator: 'admin',
+  operatingTime: '2024-01-01 00:00:00'
+})
 
-let model = {
-  boatName: '',
-  terminalCode: ''
-}
+const dialogVisible = ref(false)
 
-const data = [
-  {
-    boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
-  },
-  {
-    boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
-  },
-  {
-    boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
-  },
-  {
-    boatName: '粤茂滨渔54108',
-    terminalCode: '412537779',
-    address: '广东省茂名市',
-    ownerName: '刘华强'
-  }
-]
-
-const columns = [
-  {
-    label: '渔船名称',
-    prop: 'boatName'
-  },
-  {
-    label: '终端号码',
-    prop: 'terminalCode'
-  },
-  {
-    label: '所属地',
-    prop: 'address'
-  },
-  {
-    label: '渔船所有人',
-    prop: 'ownerName'
-  }
-]
-
-const config = {
-  type: 'index',
-  width: 120
-}
-
-const operate = [
-  {
-    label: '编辑',
-    prop: 'edit',
-    theme: 'primary'
-  },
-  {
-    label: '删除',
-    prop: 'delete',
-    theme: 'danger'
-  }
-]
-
-const pagination = {
-  current: 1,
-  size: 15,
-  total: 0
-}
-
-/**
- * 分页大小变化
- * @param val 分页大小
- */
-const handleSizeChange = (val) => {
-  console.log(val)
-}
-
-/**
- * 页码变化
- * @param val 当前页码
- */
-const handleCurrentChange = (val) => {
-  console.log(val)
+const onSubmit = () => {
+  console.log('submit!')
 }
 
 /**
@@ -160,5 +54,12 @@ const close = () => {
 </script>
 
 <style lang="scss" scoped>
+:deep(.el-form-item){
+  &.button .el-form-item__content{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+}
 
 </style>

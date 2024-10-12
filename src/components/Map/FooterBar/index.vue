@@ -2,12 +2,14 @@
   <ul class="map-number">
     <li class="number-item" v-for="(item,index) in list" :key="index">
       <span class="label">{{ item.label }}:</span>
-      <span class="value">{{ model[item.prop] }}</span>
+      <span class="value" @click="handle(item.prop)">{{ model[item.prop] }}</span>
     </li>
   </ul>
-
 </template>
 <script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const list = [
   {
@@ -33,6 +35,15 @@ const model = {
   online: 280,
   offline: 20,
   work: 200
+}
+
+/**
+ * 点击数量查看详情
+ * @param type 类型
+ */
+const handle = (type) => {
+  console.log(type)
+  router.push('/business/trawler-number')
 }
 
 </script>

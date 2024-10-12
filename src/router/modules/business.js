@@ -2,6 +2,10 @@ export default [
   {
     path: '/business',
     name: 'app-business',
+    meta: {
+      auth: false,
+      title: '首页'
+    },
     component: () => import('@/views/business/index.vue'),
     children: [
       {
@@ -92,6 +96,15 @@ export default [
         meta: {
           auth: false,
           title: '多船轨迹回放'
+        }
+      },
+      {
+        path: 'trawler-number',
+        name: 'trawler-number',
+        component: () => import('@/views/business/trawler/number/index.vue'),
+        meta: {
+          auth: false,
+          title: '渔船数量'
         }
       }
     ]

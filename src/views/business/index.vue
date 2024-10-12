@@ -9,6 +9,7 @@
 import HeaderMenuComponent from '@/components/HeaderMenu/index.vue'
 import MapComponent from '@/components/Map/index.vue'
 
+window.name = 'business_window'
 </script>
 
 <style lang="scss" scoped>

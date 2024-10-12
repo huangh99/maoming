@@ -1,8 +1,8 @@
 <template>
-  <el-table height="100%" :data="data" stripe table-layout="fixed" @selection-change="selectChange">
-    <el-table-column v-if="config.type === 'index'" label="序号" type="index" align="center" width="55" />
+  <el-table height="100%" :data="data" stripe table-layout="fixed" :size="size" @selection-change="selectChange">
+    <el-table-column v-if="config.type === 'index'" label="序号" type="index" align="center" width="60" />
 
-    <el-table-column v-if="config.type === 'selection'" type="selection" align="center" width="55" />
+    <el-table-column v-if="config.type === 'selection'" type="selection" align="center" width="60" />
 
     <el-table-column v-for="(item, index) in columns" :key="index" :label="item.label" :prop="item.prop"
       show-overflow-tooltip :min-width="item.width">
@@ -53,6 +53,11 @@ defineProps({
         width: 90
       }
     }
+  },
+  size: {
+    type: String,
+    required: false,
+    default: ''
   }
 })
 

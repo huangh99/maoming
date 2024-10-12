@@ -1,21 +1,15 @@
 <template>
-  <DialogComponent title="渔船信息" @close="close">
+  <DialogComponent class="track-dialog" title="多船轨迹回放" width="520" @close="close">
+    <div class="sub-title">查询条件</div>
     <FilterComponent :filter-items="items" :filter-model="model"/>
-    <TableComponent style="height: 500px;" :data="data" :columns="columns" :config="config" :operate="operate"/>
-    <el-pagination
-      v-model:current-page="pagination.current"
-      v-model:page-size="pagination.size"
-      :total="pagination.total"
-      :page-sizes="[ 10, 15, 20, 50 ]"
-      layout="total, sizes, prev, pager, next, jumper"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      style="margin-top: 10px; justify-content: center;"
-    />
+    <div class="sub-title">选中船舶</div>
+    <TableComponent style="height: 370px;" :data="data" :columns="columns" :config="config"/>
+    <el-button type="primary" :icon="Search" style="width: 100%;">轨迹查询</el-button>
   </DialogComponent>
 </template>
 <script setup>
 import { useRouter } from 'vue-router'
+import { Search } from '@element-plus/icons-vue'
 import FilterComponent from '@/components/Filter/index.vue'
 import TableComponent from '@/components/Table/index.vue'
 import DialogComponent from '@/components/Dialog/index.vue'
@@ -24,13 +18,32 @@ const router = useRouter()
 
 const items = [
   {
-    label: '船名号',
-    prop: 'boatName',
-    type: 'input'
+    label: '时间范围',
+    prop: 'time',
+    type: 'datetimerange'
   },
   {
-    label: '终端号码',
-    prop: 'terminalCode',
+    label: '区域类型',
+    prop: 'areaType',
+    type: 'select',
+    options: [
+      {
+        label: '圆形',
+        value: '圆形'
+      },
+      {
+        label: '矩形',
+        value: '矩形'
+      },
+      {
+        label: '多边形',
+        value: '多边形'
+      }
+    ]
+  },
+  {
+    label: '渔船名称',
+    prop: 'boatName',
     type: 'input'
   },
   {
@@ -38,30 +51,13 @@ const items = [
     prop: 'query',
     theme: 'primary',
     type: 'button'
-  },
-  {
-    name: '新增',
-    prop: 'add',
-    theme: 'success',
-    type: 'button'
-  },
-  {
-    name: '导入',
-    prop: 'add',
-    theme: 'info',
-    type: 'button'
-  },
-  {
-    name: '导出',
-    prop: 'add',
-    theme: 'warning',
-    type: 'button'
   }
 ]
 
 let model = {
   boatName: '',
-  terminalCode: ''
+  areaType: '',
+  time: ''
 }
 
 const data = [
@@ -111,43 +107,8 @@ const columns = [
 ]
 
 const config = {
-  type: 'index',
+  type: 'selection',
   width: 120
-}
-
-const operate = [
-  {
-    label: '编辑',
-    prop: 'edit',
-    theme: 'primary'
-  },
-  {
-    label: '删除',
-    prop: 'delete',
-    theme: 'danger'
-  }
-]
-
-const pagination = {
-  current: 1,
-  size: 15,
-  total: 0
-}
-
-/**
- * 分页大小变化
- * @param val 分页大小
- */
-const handleSizeChange = (val) => {
-  console.log(val)
-}
-
-/**
- * 页码变化
- * @param val 当前页码
- */
-const handleCurrentChange = (val) => {
-  console.log(val)
 }
 
 /**
@@ -160,5 +121,39 @@ const close = () => {
 </script>
 
 <style lang="scss" scoped>
+.track-dialog{
+  top: 50%;
+  left: unset;
+  right: 5px;
+  transform: translate(0, -50%);
 
+  .sub-title{
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-family: 'SHSCM';
+    color: #252B3A;
+    // border-bottom: 1px solid #ebeef5;
+
+    &::before{
+      content: '';
+      display: block;
+      width: 6px;
+      height: 18px;
+      background-color: #167FFF;
+      border-radius: 3px;
+      margin-right: 5px;
+    }
+
+    &::after{
+      content: '';
+      display: block;
+      flex: 1;
+      margin-left: 5px;
+      height: 1px;
+      background-color: #ebeef5;
+    }
+  }
+}
 </style>
