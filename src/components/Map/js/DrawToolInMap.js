@@ -19,6 +19,7 @@ export default class DrawToolInMap {
   _initLayer() {
     if (this.map.getLayer('draw_tool')) {
       this.layer = this.map.getLayer('draw_tool')
+      this.layer.clear()
     } else {
       this.layer = new maptalks.VectorLayer('draw_tool', {
         zIndex: 2

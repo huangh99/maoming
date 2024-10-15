@@ -1,38 +1,47 @@
 <template>
   <ul class="map-tool">
-    <li :class="['map-tool-item', item.active? 'active':'']" v-for="(item, index) in list" :key="index" @click="handleToolEvent(item.event, item.prop, item.active, index)">
+    <li :class="['map-tool-item', item.active ? 'active' : '']" v-for="(item, index) in list" :key="index"
+      @click="handleToolEvent(item.event, item.prop, item.active, index)">
       <el-tooltip class="box-item" effect="light" :content="item.label" placement="top">
         <img :src="getAssetsFile(`icon-${item.icon}.png`)" alt="">
       </el-tooltip>
       <ul class="menu-list" v-if="item.children">
-        <li :class="['menu-list-item', child.active? 'active' : '']" v-for="(child, _index) in item.children"
-          :key="_index" @click.stop="handleToolEvent(child.event, child.prop, child.active, index, child)">{{ child.label }}</li>
+        <li :class="['menu-list-item', child.active ? 'active' : '']" v-for="(child, _index) in item.children"
+          :key="_index" @click.stop="handleToolEvent(child.event, child.prop, child.active, index, child)">{{
+            child.label }}</li>
       </ul>
     </li>
   </ul>
   <img class="alarm-icon" src="@/assets/images/icon-alarm.png" alt="">
-  <!-- <img class="test-img" src="@/assets/images/test.png" alt=""> -->
 </template>
 <script setup>
 import { reactive, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { useFullscreen } from '@vueuse/core'
 import GlobalMap from '@/components/Map/js/GlobalMap'
+import DrawToolInMap from '@/components/Map/js/DrawToolInMap'
 import MeasureToolInMap from '@/components/Map/js/MeasureToolInMap'
 import { getAssetsFile } from '@/utils/common'
 
+const router = useRouter()
 const { isFullscreen, toggle } = useFullscreen()
+let drawTool = null
 let measureTool = null
 let globalMap = null
 
 const list = reactive([
   {
     label: '方搜',
-    event: 'search-square',
-    icon: 'search-square'
+    active: false,
+    event: 'search-rectangle',
+    prop: 'Rectangle',
+    icon: 'search-rectangle'
   },
   {
     label: '圆搜',
+    active: false,
     event: 'search-circle',
+    prop: 'Circle',
     icon: 'search-circle'
   },
   {
@@ -94,33 +103,106 @@ const list = reactive([
 ])
 
 /**
+ * 区域搜索
+ * @param {'Rectangle'|'Polygon'|'Circle'} type 区域类型
+ * @param active 选中状态
+ */
+const searchByArea = (type, active) => {
+  if(active) {
+    destroyDrawTool()
+  }else{
+    if(!drawTool) {
+      drawTool = new DrawToolInMap(globalMap.map)
+    }
+    const callback = (param) => {
+      const coordinates = param.geometry.getCoordinates()
+      let point = []
+      switch (type) {
+        case 'Circle': {
+          point = {
+            x: coordinates.x,
+            y: coordinates.y,
+            r: param.geometry.getRadius()
+          }
+          // searchType.value = 'circle'
+          break
+        }
+        case 'Polygon':
+        case 'Rectangle': {
+          point = coordinates[0].map((item) => ({
+            x: item.x,
+            y: item.y
+          }))
+          // searchType.value = 'polygon'
+          break
+        }
+        default: {
+          break
+        }
+      }
+      // 查询
+      // const str = type[event]
+
+      // searchType.value = str.replace(str[0], str[0].toLowerCase())
+      // searchCoords.value = JSON.stringify(point)
+      // dialogVisible.value = true
+      console.log(point)
+      router.push('/business/regional-search')
+
+    }
+
+    drawTool.toggleDraw({
+      drawend: callback,
+      mode: type,
+      symbol: {
+        lineColor: '#F00',
+        lineWidth: 2,
+        polygonFill: 'rgb(255, 255, 255)',
+        polygonOpacity: 0.5
+      }
+    })
+  }
+}
+
+/**
  * 地图工具
  * @param event 事件
  * @param type 类型
  */
 const handleToolEvent = (event, type, active, index, subItem) => {
-  if(!globalMap) {
+  if (!globalMap) {
     globalMap = new GlobalMap()
   }
 
   switch (event) {
-    case 'search-square':
-
-      break
+    case 'search-rectangle':
     case 'search-circle':
-
+      destroyMeasureTool()
+      searchByArea(type, active)
+      if (active) {
+        list[index].active = false
+      } else {
+        list.forEach(item => {
+          if (item.event.includes('search') || item.event.includes('measure')) {
+            item.active = false
+          }
+        })
+        list[index].active = true
+      }
       break
     case 'measure-distance':
     case 'measure-area':
-      if(!measureTool) {
+      destroyDrawTool()
+      if (!measureTool) {
         measureTool = new MeasureToolInMap(globalMap.map)
       }
+
       measureTool.toggleTool(type)
-      if(active) {
+      if (active) {
         list[index].active = false
-      }else{
+      } else {
         list.forEach(item => {
-          if(item.event.includes('measure')) {
+          if (item.event.includes('measure') || item.event.includes('search')) {
             item.active = false
           }
         })
@@ -130,9 +212,9 @@ const handleToolEvent = (event, type, active, index, subItem) => {
       break
     case 'toggle-base':
       globalMap.toggleBaseLayer(type)
-      if(active) {
+      if (active) {
         subItem.active = false
-      }else{
+      } else {
         list[index].children.forEach(item => {
           item.active = false
         })
@@ -153,6 +235,26 @@ const handleToolEvent = (event, type, active, index, subItem) => {
       break
   }
 
+}
+
+/**
+ * 销毁测量工具
+ */
+const destroyMeasureTool = () => {
+  if (measureTool) {
+    measureTool.destroy()
+    measureTool = null
+  }
+}
+
+/**
+ * 销毁测量工具
+ */
+const destroyDrawTool = () => {
+  if (drawTool) {
+    drawTool.destroy()
+    drawTool = null
+  }
 }
 
 onMounted(() => {
@@ -228,16 +330,12 @@ onMounted(() => {
     }
   }
 }
-.alarm-icon{
+
+.alarm-icon {
   position: absolute;
   top: 65px;
   right: 5px;
   width: 36px;
   height: 36px;
-}
-.test-img{
-  position: absolute;
-  top: 65px;
-  left: 5px;
 }
 </style>

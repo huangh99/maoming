@@ -89,6 +89,8 @@ window.name = 'system_window'
     flex: 1;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    box-sizing: border-box;
 
     header{
       height: 60px;

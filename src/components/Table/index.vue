@@ -1,12 +1,8 @@
 <template>
-  <el-table height="100%" :data="data" stripe table-layout="fixed" :size="size" @selection-change="selectChange">
+  <el-table height="100%" :data="data" stripe table-layout="fixed" :size="size" :row-key="config.rowKey" :default-expand-all="config.expandAll" @selection-change="selectChange">
     <el-table-column v-if="config.type === 'index'" label="序号" type="index" align="center" width="60" />
 
     <el-table-column v-if="config.type === 'selection'" type="selection" align="center" width="60" />
-
-    <!-- <el-table-column v-for="(item, index) in columns" :key="index" :label="item.label" :prop="item.prop"
-      show-overflow-tooltip :min-width="item.width">
-    </el-table-column> -->
 
     <template v-for="(item, index) in columns" :key="index">
       <el-table-column v-if="item.link" :label="item.label" :prop="item.prop" show-overflow-tooltip :min-width="item.width" align="center">

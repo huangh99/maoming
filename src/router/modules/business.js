@@ -106,6 +106,15 @@ export default [
           auth: false,
           title: '渔船数量'
         }
+      },
+      {
+        path: 'regional-search',
+        name: 'regional-search',
+        component: () => import('@/views/business/trawler/regional/index.vue'),
+        meta: {
+          auth: false,
+          title: '区域搜索结果'
+        }
       }
     ]
   }

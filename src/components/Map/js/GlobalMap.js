@@ -55,7 +55,7 @@ const baseLayerConfig = {
 }
 
 const baseConfig = {
-  center: [ 120.086, 35.884 ],
+  center: [ 115.671719, 26.706489 ],
   zoom: 6,
   maxZoom: 18,
   minZoom: 1,

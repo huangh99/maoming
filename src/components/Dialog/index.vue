@@ -10,11 +10,11 @@
   </el-dialog>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { Close } from '@element-plus/icons-vue'
 
 const emit = defineEmits([ 'close' ])
-const props = defineProps({
+defineProps({
   visible: {
     default: true,
     required: false,
@@ -51,11 +51,6 @@ const close = () => {
   emit('close')
 }
 
-onMounted(() => {
-  console.log(props)
-
-  // dialogVisible.value = props.visible
-})
 </script>
 
 <style lang="scss" scoped>

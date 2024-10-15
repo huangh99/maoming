@@ -1,31 +1,54 @@
 <template>
   <div class="map-container">
     <div id="map"></div>
-    <ToolBarComponent/>
-    <FooterBarComponent/>
+    <ToolBarComponent />
+    <FooterBarComponent />
+    <TrawlerInfoWIndowComponent />
   </div>
 
 </template>
 <script setup>
 import { onMounted } from 'vue'
-import GlobalMap from './js/GlobalMap.js'
+import * as maptalks from 'maptalks'
+import GlobalMap from './js/GlobalMap'
+import useMapStore from '@/store/modules/map'
 import ToolBarComponent from './ToolBar/index.vue'
 import FooterBarComponent from './FooterBar/index.vue'
+import TrawlerInfoWIndowComponent from './InfoWindow/Trawler/index.vue'
+
+const mapStore = useMapStore()
 
 const initMap = () => {
-  // new maptalks.Map('map', {
-  //   center: [120.086,35.884],
-  //   zoom: 6,
-  //   maxZoom: 18,
-  //   minZoom: 1,
-  //   attribution: '',
-  //   baseLayer: new maptalks.TileLayer('base', {
-  //     urlTemplate: 'http://inner.qdlimap.cn:9999/gisAssistant/wmts/grid_tile/tianditu/vec_w/{z}/{y}/{x}'
-  //   })
-  // })
   const mapDom = document.getElementById('map')
 
-  new GlobalMap(mapDom)
+  const globalMap = new GlobalMap(mapDom)
+
+  const point = new maptalks.Marker(
+    [ 111.058597, 21.40198 ],
+    {
+      cursor: 'pointer',
+      symbol: {
+        'markerType': 'triangle',
+        'markerFill': 'rgb(135,196,240)',
+        'markerFillOpacity': 1,
+        'markerLineColor': '#34495e',
+        'markerLineWidth': 1,
+        'markerLineOpacity': 1,
+        'markerLineDasharray': [],
+        'markerWidth': 10,
+        'markerHeight': 15,
+        'markerDx': 0,
+        'markerDy': 0,
+        'markerOpacity': 1
+      }
+    }
+  )
+
+  point.on('click', () => {
+    mapStore.updateInfoWindow(true)
+  })
+
+  new maptalks.VectorLayer('vector', point).addTo(globalMap.map)
 
 }
 
@@ -36,11 +59,11 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.map-container{
+.map-container {
   width: 100%;
   height: 100%;
 
-  #map{
+  #map {
     width: 100%;
     height: 100%;
   }
