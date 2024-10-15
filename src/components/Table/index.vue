@@ -4,9 +4,20 @@
 
     <el-table-column v-if="config.type === 'selection'" type="selection" align="center" width="60" />
 
-    <el-table-column v-for="(item, index) in columns" :key="index" :label="item.label" :prop="item.prop"
+    <!-- <el-table-column v-for="(item, index) in columns" :key="index" :label="item.label" :prop="item.prop"
       show-overflow-tooltip :min-width="item.width">
-    </el-table-column>
+    </el-table-column> -->
+
+    <template v-for="(item, index) in columns" :key="index">
+      <el-table-column v-if="item.link" :label="item.label" :prop="item.prop" show-overflow-tooltip :min-width="item.width" align="center">
+        <template #default="scope">
+          <el-button link :type="item.theme" @click="handle(item.prop, scope.row)">{{ item.text }}</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column v-else :label="item.label" :prop="item.prop"
+        show-overflow-tooltip :min-width="item.width">
+      </el-table-column>
+    </template>
 
     <el-table-column v-if="operate.length" align="center" fixed="right" label="操作" :width="config.width">
 

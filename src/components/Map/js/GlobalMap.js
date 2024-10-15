@@ -3,28 +3,23 @@ import * as maptalks from 'maptalks'
 // 底图配置
 const baseLayerConfig = {
   baseConfig: {
-    satellite: [ 'mapbox_satellite', 'tdt_cia' ],
-    sea: [ 'sea', 'tdt_cia' ],
-    light: [ 'tdt_vec', 'mapbox_cva' ],
+    satellite: [ 'satellite' ],
+    sea: [ 'sea' ],
+    light: [ 'light' ],
     dark: [ 'tdt_ter', 'tdt_tbo', 'tdt_cta' ]
   },
   layerConfig: {
-    tdt_vec: {
+    light: {
       max: 18,
-      name: '',
-      subdomains: [ '0', '1', '2', '3', '4', '5' ],
-      urlTemplate:
-        'http://inner.qdlimap.cn:9999/gisAssistant/wmts/grid_tile/tianditu/vec_w/{z}/{y}/{x}'
+      urlTemplate: 'http://115.29.203.175:17586/vec-cva/{z}/{x}/{y}.png'
     },
     sea: {
       max: 18,
-      urlTemplate:
-        'http://192.168.2.201:1996/gisAssistant/wmts/combineTile/{z}/{y}/{x}?satellite=grid_tile/mapbox/satellite/<z>/<y>/<x>!mode=land&ocean=grid_tile/local/seaMap/01_temp_1-18/<z>/<y>/<x>!mode=ocean'
+      urlTemplate: 'http://192.168.2.201:1996/gisAssistant/wmts/combineTile/{z}/{y}/{x}?satellite=grid_tile/mapbox/satellite/<z>/<y>/<x>!mode=land&ocean=grid_tile/local/seaMap/01_temp_1-18/<z>/<y>/<x>!mode=ocean'
     },
-    mapbox_satellite: {
+    satellite: {
       max: 18,
-      urlTemplate:
-        'http://inner.qdlimap.cn:9999/gisAssistant/wmts/grid_tile/mapbox/satellite/{z}/{y}/{x}'
+      urlTemplate: 'http://115.29.203.175:17586/img-cia/{z}/{x}/{y}.png'
     },
     basemaps_dark: {
       max: 18,
@@ -34,32 +29,27 @@ const baseLayerConfig = {
     tdt_cia: {
       max: 18,
       subdomains: [ '0', '1', '2', '3', '4', '5', '6', '7' ],
-      urlTemplate:
-        'http://inner.qdlimap.cn:9999/gisAssistant/wmts/grid_tile/tianditu/cia_w/{z}/{y}/{x}'
+      urlTemplate: 'http://inner.qdlimap.cn:9999/gisAssistant/wmts/grid_tile/tianditu/cia_w/{z}/{y}/{x}'
     },
     mapbox_cva: {
       max: 18,
       subdomains: [ '0', '1', '2', '3', '4', '5', '6', '7' ],
-      urlTemplate:
-        'http://service.qdlimap.cn:9999/gisAssistant/wmts/grid_tile/mapbox/compartment/{z}/{y}/{x}'
+      urlTemplate: 'http://service.qdlimap.cn:9999/gisAssistant/wmts/grid_tile/mapbox/compartment/{z}/{y}/{x}'
     },
     tdt_tbo: {
       max: 18,
       subdomains: [ '0', '1', '2', '3', '4', '5', '6', '7' ],
-      urlTemplate:
-        'http://inner.qdlimap.cn:9999/gisAssistant/wmts/grid_tile/tianditu/tbo_w/{z}/{y}/{x}'
+      urlTemplate: 'http://inner.qdlimap.cn:9999/gisAssistant/wmts/grid_tile/tianditu/tbo_w/{z}/{y}/{x}'
     },
     tdt_ter: {
       max: 18,
       subdomains: [ '0', '1', '2', '3', '4', '5', '6', '7' ],
-      urlTemplate:
-        'http://inner.qdlimap.cn:9999/gisAssistant/wmts/grid_tile/tianditu/ter_w/{z}/{y}/{x}'
+      urlTemplate: 'http://inner.qdlimap.cn:9999/gisAssistant/wmts/grid_tile/tianditu/ter_w/{z}/{y}/{x}'
     },
     tdt_cta: {
       max: 18,
       subdomains: [ '0', '1', '2', '3', '4', '5', '6', '7' ],
-      urlTemplate:
-        'http://inner.qdlimap.cn:9999/gisAssistant/wmts/grid_tile/tianditu/cta_w/{z}/{y}/{x}'
+      urlTemplate: 'http://inner.qdlimap.cn:9999/gisAssistant/wmts/grid_tile/tianditu/cta_w/{z}/{y}/{x}'
     }
   }
 }
@@ -71,7 +61,7 @@ const baseConfig = {
   minZoom: 1,
   attribution: '',
   enableInfoWindow: false,
-  baseLayerName: 'sea',
+  baseLayerName: 'light',
   pitch: 0,
   bearing: 0,
   dragRotate: false,

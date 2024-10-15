@@ -1,5 +1,5 @@
 <template>
-  <DialogComponent title="设备管理" @close="close">
+  <DialogComponent title="设备管理" @close="$emit('close')">
     <FilterComponent :filter-items="items" :filter-model="model" @handle="handle"/>
     <TableComponent style="height: 500px;" :data="data" :columns="columns" :config="config" :operate="operate" @handle="handle"/>
     <el-pagination v-model:current-page="pagination.current" v-model:page-size="pagination.size"
@@ -8,21 +8,12 @@
       style="margin-top: 10px; justify-content: center;" />
   </DialogComponent>
 
-  <DialogComponent v-if="detail.visible" :title="detail.title[detail.type]" :modal="true" width="800"
-    @close="closeDetail">
-    <DetailComponent :data="detail.data" :type="detail.type" @close="closeDetail" />
-  </DialogComponent>
 </template>
 <script setup>
-import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import FilterComponent from '@/components/Filter/index.vue'
 import TableComponent from '@/components/Table/index.vue'
 import DialogComponent from '@/components/Dialog/index.vue'
-import DetailComponent from './detail.vue'
-
-const router = useRouter()
 
 const items = [
   {
@@ -78,31 +69,37 @@ const data = [
   {
     code: '281362',
     type: '北斗',
+    status: '已添加该组',
     factory: '福建飞通通讯科技股份有限公司'
   },
   {
     code: '281362',
     type: '北斗',
+    status: '已添加该组',
     factory: '福建飞通通讯科技股份有限公司'
   },
   {
     code: '281362',
     type: '北斗',
+    status: '已添加该组',
     factory: '福建飞通通讯科技股份有限公司'
   },
   {
     code: '281362',
     type: '北斗',
+    status: '已添加该组',
     factory: '福建飞通通讯科技股份有限公司'
   },
   {
     code: '281362',
     type: '北斗',
+    status: '已添加该组',
     factory: '福建飞通通讯科技股份有限公司'
   },
   {
     code: '281362',
     type: '北斗',
+    status: '已添加该组',
     factory: '福建飞通通讯科技股份有限公司'
   }
 ]
@@ -117,6 +114,10 @@ const columns = [
     prop: 'type'
   },
   {
+    label: '状态',
+    prop: 'status'
+  },
+  {
     label: '设备厂家',
     prop: 'factory'
   }
@@ -129,12 +130,12 @@ const config = {
 
 const operate = [
   {
-    label: '编辑',
+    label: '添加',
     prop: 'edit',
     theme: 'primary'
   },
   {
-    label: '删除',
+    label: '移除',
     prop: 'delete',
     theme: 'danger'
   }
@@ -145,17 +146,6 @@ const pagination = {
   size: 15,
   total: 0
 }
-
-const detail = reactive({
-  visible: false,
-  title: {
-    add: '设备信息新增',
-    check: '设备信息查看',
-    edit: '设备信息编辑'
-  },
-  type: 'add',
-  data: {}
-})
 
 /**
  * 分页大小变化
@@ -187,15 +177,11 @@ const handle = (type, data) => {
       // initData()
       break
     case 'add':
-      detail.visible = true
-      detail.type = 'add'
-      detail.data = {}
+
       break
     case 'check':
     case 'edit':
-      detail.type = type
-      detail.data = { ...data }
-      detail.visible = true
+
       break
     case 'delete': {
       ElMessageBox.confirm(
@@ -214,24 +200,6 @@ const handle = (type, data) => {
 
     default:
       break
-  }
-}
-
-/**
- * 点击关闭按钮
- */
-const close = () => {
-  router.push('/business')
-}
-
-/**
- * 关闭详情弹窗
- * @param refresh 是否刷新数据
- */
-const closeDetail = (refresh) => {
-  detail.visible = false
-  if (refresh) {
-    // initData()
   }
 }
 

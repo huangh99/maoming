@@ -1,10 +1,13 @@
 <template>
-  <DialogComponent class="track-dialog" title="多船轨迹回放" width="520" @close="close">
+  <DialogComponent title="多船轨迹回放" width="520" @close="close" style="position: absolute;right: 5px;left: unset;transform: translate(0,-50%);">
     <div class="sub-title">查询条件</div>
     <FilterComponent :filter-items="items" :filter-model="model"/>
     <div class="sub-title">选中船舶</div>
     <TableComponent style="height: 370px;" :data="data" :columns="columns" :config="config"/>
-    <el-button type="primary" :icon="Search" style="width: 100%;">轨迹查询</el-button>
+    <div style="width: 100%;display: flex;justify-content: space-between;">
+      <el-button type="primary" :icon="Search" style="width: 48%;">轨迹查询</el-button>
+      <el-button type="warning" :icon="Search" style="width: 48%;">轨迹下载</el-button>
+    </div>
   </DialogComponent>
 </template>
 <script setup>
@@ -121,39 +124,31 @@ const close = () => {
 </script>
 
 <style lang="scss" scoped>
-.track-dialog{
-  top: 50%;
-  left: unset;
-  right: 5px;
-  transform: translate(0, -50%);
+.sub-title{
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-family: 'SHSCM';
+  color: #252B3A;
 
-  .sub-title{
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-family: 'SHSCM';
-    color: #252B3A;
-    // border-bottom: 1px solid #ebeef5;
+  &::before{
+    content: '';
+    display: block;
+    width: 6px;
+    height: 18px;
+    background-color: #167FFF;
+    border-radius: 3px;
+    margin-right: 5px;
+  }
 
-    &::before{
-      content: '';
-      display: block;
-      width: 6px;
-      height: 18px;
-      background-color: #167FFF;
-      border-radius: 3px;
-      margin-right: 5px;
-    }
-
-    &::after{
-      content: '';
-      display: block;
-      flex: 1;
-      margin-left: 5px;
-      height: 1px;
-      background-color: #ebeef5;
-    }
+  &::after{
+    content: '';
+    display: block;
+    flex: 1;
+    margin-left: 5px;
+    height: 1px;
+    background-color: #ebeef5;
   }
 }
 </style>

@@ -10,7 +10,8 @@
       </ul>
     </li>
   </ul>
-
+  <img class="alarm-icon" src="@/assets/images/icon-alarm.png" alt="">
+  <!-- <img class="test-img" src="@/assets/images/test.png" alt=""> -->
 </template>
 <script setup>
 import { reactive, onMounted } from 'vue'
@@ -61,22 +62,22 @@ const list = reactive([
       },
       {
         label: '海图',
-        active: true,
+        active: false,
         event: 'toggle-base',
         prop: 'sea'
       },
       {
         label: '浅色',
-        active: false,
+        active: true,
         event: 'toggle-base',
         prop: 'light'
-      },
-      {
-        label: '深色',
-        active: false,
-        event: 'toggle-base',
-        prop: 'dark'
       }
+      // {
+      //   label: '深色',
+      //   active: false,
+      //   event: 'toggle-base',
+      //   prop: 'dark'
+      // }
     ]
   },
   {
@@ -226,5 +227,17 @@ onMounted(() => {
       }
     }
   }
+}
+.alarm-icon{
+  position: absolute;
+  top: 65px;
+  right: 5px;
+  width: 36px;
+  height: 36px;
+}
+.test-img{
+  position: absolute;
+  top: 65px;
+  left: 5px;
 }
 </style>

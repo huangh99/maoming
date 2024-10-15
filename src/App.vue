@@ -85,3 +85,33 @@ html ::-webkit-scrollbar {
   outline: unset;
 }
 </style>
+
+<style lang="scss" >
+#app{
+    :deep(.el-dialog){
+      padding: 0;
+      background-color: red!important;
+
+      &.dialog-wrapper{
+        :deep(.el-dialog__header){
+          background-color: red!important;
+          padding: 0;
+        }
+
+      }
+
+    }
+    // :deep([role="dialog"]){
+    //   &.el-overlay-dialog{
+    //     .el-dialog{
+    //       padding: 0;
+    //       background-color: red!important;
+
+    //       .el-dialog__header{
+    //         background-color: red;
+    //       }
+    //     }
+    //   }
+    // }
+  }
+</style>

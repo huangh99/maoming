@@ -1,20 +1,25 @@
 <template>
-  <div class="dialog-wrapper" :style="`width:${width? width:'1230'}px;height:${height? height+'px':'unset'};max-height:${maxHeight? maxHeight+'px':'unset'};`">
-    <div class="title">
-      <span>{{ title }}</span>
-      <el-icon @click="close"><Close /></el-icon>
-    </div>
-    <div class="dialog-content" :style="`max-height: ${maxHeight? (maxHeight-54)+'px':'unset'};`">
-      <slot></slot>
-    </div>
-  </div>
+  <el-dialog class="dialog-wrapper" v-model="dialogVisible" :show-close="false" :width="width" :draggable="draggable" :modal="modal" :close-on-click-modal="false" :close-on-press-escape="false">
+    <template #header="{ titleId, titleClass }">
+      <div class="title" :id="titleId" :class="titleClass">
+        <span>{{ title }}</span>
+        <el-icon @click="close"><Close /></el-icon>
+      </div>
+    </template>
+    <slot></slot>
+  </el-dialog>
 </template>
 <script setup>
+import { ref, onMounted } from 'vue'
 import { Close } from '@element-plus/icons-vue'
 
 const emit = defineEmits([ 'close' ])
-
-defineProps({
+const props = defineProps({
+  visible: {
+    default: true,
+    required: false,
+    type: Boolean
+  },
   title: {
     default: '',
     required: false,
@@ -25,17 +30,19 @@ defineProps({
     required: false,
     type: [ String, Number ]
   },
-  height: {
-    default: '',
+  draggable: {
+    default: false,
     required: false,
-    type: [ String, Number ]
+    type: Boolean
   },
-  maxHeight: {
-    default: '',
+  modal: {
+    default: false,
     required: false,
-    type: [ String, Number ]
+    type: Boolean
   }
 })
+
+const dialogVisible = ref(true)
 
 /**
  * 点击关闭按钮
@@ -44,43 +51,13 @@ const close = () => {
   emit('close')
 }
 
+onMounted(() => {
+  console.log(props)
+
+  // dialogVisible.value = props.visible
+})
 </script>
 
 <style lang="scss" scoped>
-.dialog-wrapper{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 12px;
-  background-color: #fff;
-  pointer-events: all;
 
-  .title{
-    width: 100%;
-    height: 54px;
-    padding: 0 30px;
-    background: #F4F5F7;
-    border-radius: 12px 12px 0px 0px;
-    color: #252B3A;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-
-    .el-icon{
-      cursor: pointer;
-
-      &:active{
-        opacity: .8;
-      }
-    }
-  }
-
-  .dialog-content{
-    padding: 15px 30px;
-    box-sizing: border-box;
-  }
-}
 </style>
