@@ -161,6 +161,7 @@ const searchByArea = (type, active) => {
         polygonOpacity: 0.5
       }
     })
+
   }
 }
 

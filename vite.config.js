@@ -7,7 +7,7 @@ import eslintPlugin from 'vite-plugin-eslint'
 export default defineConfig({
   server: {
     host: '0.0.0.0',
-    port: 6600,
+    port: 6601,
     open: true
   },
   plugins: [
